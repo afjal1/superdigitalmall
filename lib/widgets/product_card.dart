@@ -56,23 +56,25 @@ class ProductBlock extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                        height: 250,
-                        decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 5,
-                                blurRadius: 7,
-                                offset: const Offset(
-                                    0, 3), // changes position of shadow
-                              )
-                            ],
-                            border: Border.all(),
-                            image: DecorationImage(
-                                image: NetworkImage(product.image),
-                                fit: BoxFit.cover),
-                            borderRadius: BorderRadius.circular(25))),
+                    Hero(
+                      tag: 'product_image_${product.id}',
+                      child: Container(
+                          height: 250,
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: const Offset(
+                                      0, 3), // changes position of shadow
+                                )
+                              ],
+                              image: DecorationImage(
+                                  image: NetworkImage(product.image),
+                                  fit: BoxFit.cover),
+                              borderRadius: BorderRadius.circular(25))),
+                    ),
                     const SizedBox(
                       height: 10,
                     ),
@@ -86,7 +88,7 @@ class ProductBlock extends StatelessWidget {
                               product.title,
                             ),
                             Text(
-                              "\$${product.price.toString()}",
+                              "₹${product.price.toString()}",
                             ),
                           ],
                         ),

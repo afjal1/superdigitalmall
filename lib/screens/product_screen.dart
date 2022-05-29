@@ -132,12 +132,16 @@ class ProductSc extends StatelessWidget {
             const SizedBox(
               height: 60,
             ),
-            Container(
-              height: 200,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
-                  image: DecorationImage(
-                      image: NetworkImage(product.image), fit: BoxFit.contain)),
+            Hero(
+              tag: 'product_image_${product.id}',
+              child: Container(
+                height: 200,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    image: DecorationImage(
+                        image: NetworkImage(product.image),
+                        fit: BoxFit.contain)),
+              ),
             ),
             const SizedBox(
               height: 30,
