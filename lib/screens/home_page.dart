@@ -5,6 +5,7 @@ import '../Controllers/store_controller.dart';
 import '../widgets/bottomItem.dart';
 import '../widgets/custom_animated_bottombar.dart';
 import '../widgets/product_card.dart';
+import 'cart.dart';
 import 'profile.dart';
 
 class HomePage extends StatefulWidget {
@@ -68,13 +69,7 @@ class _HomePageState extends State<HomePage> {
   Widget getBody() {
     List<Widget> pages = [
       const Demo(),
-      Container(
-        alignment: Alignment.center,
-        child: const Text(
-          "Users",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        ),
-      ),
+      MyCart(),
       Container(
         alignment: Alignment.center,
         child: const Text(
@@ -115,35 +110,41 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               width: 10,
             ),
-            Stack(
-              children: [
-                const Icon(
-                  Icons.shopping_cart,
-                  size: 35,
-                  color: Colors.black,
-                ),
-                Positioned(
-                  right: -2,
-                  top: 0,
-                  child: Container(
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: const Center(
-                      child: Text(
-                        "1",
-                        style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white),
+            InkWell(
+              onTap: () {
+                _currentIndex = 1;
+                setState(() {});
+              },
+              child: Stack(
+                children: [
+                  const Icon(
+                    Icons.shopping_cart,
+                    size: 35,
+                    color: Colors.black,
+                  ),
+                  Positioned(
+                    right: -2,
+                    top: 0,
+                    child: Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "1",
+                          style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             const SizedBox(
               width: 10,
