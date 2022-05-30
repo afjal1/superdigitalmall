@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:superdigitalmall/Controllers/store_controller.dart';
+
+final StoreController store = Get.put(StoreController());
 
 class MyCart extends StatefulWidget {
   @override
@@ -8,159 +12,116 @@ class MyCart extends StatefulWidget {
 
 class _MyCartState extends State<MyCart> {
   double disPrice = 10, oriPrice = 1000, delCharge = 100, totalPrice = 890;
-  List cartList = [
-    {
-      'img':
-          "https://burst.shopifycdn.com/photos/green-t-shirt.jpg?width=746&format=pjpg&exif=1&iptc=1",
-      'name': "Green T-Shirt",
-      'descprice': "45",
-      'price': "50",
-      'qty': '1',
-      'cartCount': 1
-    },
-    {
-      'img':
-          "https://burst.shopifycdn.com/photos/wood-leather-watches.jpg?width=746&format=pjpg&exif=1&iptc=1",
-      'name': "Rolex @40 Watch",
-      'descprice': "250",
-      'price': "500",
-      'qty': '1',
-      'cartCount': 1
-    },
-    {
-      'img':
-          "https://burst.shopifycdn.com/photos/purple-gemstone-necklace.jpg?width=746&format=pjpg&exif=1&iptc=1",
-      'name': "Necklace",
-      'descprice': "25",
-      'price': "50",
-      'qty': "1",
-      'cartCount': 1
-    },
-    {
-      'img':
-          "https://burst.shopifycdn.com/photos/stacked-bracelets-set.jpg?width=746&format=pjpg&exif=1&iptc=1",
-      'name': "Bracelet",
-      'descprice': "1000",
-      'price': "1200",
-      'qty': '1',
-      'cartCount': 1
-    },
-    {
-      'img':
-          "https://burst.shopifycdn.com/photos/black-white-wrist-watches.jpg?width=746&format=pjpg&exif=1&iptc=1",
-      'name': "Black Official Watch",
-      'descprice': "1300",
-      'price': "1400",
-      'qty': '1',
-      'cartCount': 1
-    },
-  ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: cartList.isEmpty
-            ? cartEmpty()
-            : Column(
-                children: <Widget>[
-                  Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      itemCount: cartList.length,
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return listItem(index);
-                      },
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: 8, bottom: 5.0, left: 20, right: 20),
-                    child: Row(
+    return GetBuilder<StoreController>(
+        init: StoreController(),
+        builder: (store) {
+          return Scaffold(
+              body: store.tproducts.isEmpty
+                  ? cartEmpty()
+                  : Column(
                       children: <Widget>[
-                        const Text(
-                          'Total Price',
+                        Expanded(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            itemCount: store.tproducts.length,
+                            physics: const BouncingScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return listItem(index);
+                            },
+                          ),
                         ),
-                        const Spacer(),
-                        Text("₹" "$oriPrice")
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 20, right: 20, top: 5, bottom: 5),
-                    child: Row(
-                      children: <Widget>[
-                        const Text(
-                          "Delivery Charge",
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 8, bottom: 5.0, left: 20, right: 20),
+                          child: Row(
+                            children: <Widget>[
+                              const Text(
+                                'Total Price',
+                              ),
+                              const Spacer(),
+                              Text("₹" "$oriPrice")
+                            ],
+                          ),
                         ),
-                        const Spacer(),
-                        Text("₹" " $delCharge")
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 20, right: 20, top: 5, bottom: 5),
-                    child: Row(
-                      children: <Widget>[
-                        const Text(
-                          "Discount",
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 5, bottom: 5),
+                          child: Row(
+                            children: <Widget>[
+                              const Text(
+                                "Delivery Charge",
+                              ),
+                              const Spacer(),
+                              Text("₹" " $delCharge")
+                            ],
+                          ),
                         ),
-                        const Spacer(),
-                        Text('₹' " $disPrice")
-                      ],
-                    ),
-                  ),
-                  const Divider(
-                    thickness: 1,
-                    indent: 20,
-                    endIndent: 20,
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 5.0, left: 20, right: 20),
-                    child: Row(
-                      children: <Widget>[
-                        Text(
-                          'Grand Total',
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle1!
-                              .copyWith(fontWeight: FontWeight.bold),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, top: 5, bottom: 5),
+                          child: Row(
+                            children: <Widget>[
+                              const Text(
+                                "Discount",
+                              ),
+                              const Spacer(),
+                              Text('₹' " $disPrice")
+                            ],
+                          ),
                         ),
-                        const Spacer(),
-                        Text(
-                          '₹' " $totalPrice",
-                          style: Theme.of(context)
-                              .textTheme
-                              .subtitle1!
-                              .copyWith(fontWeight: FontWeight.bold),
-                        )
+                        const Divider(
+                          thickness: 1,
+                          indent: 20,
+                          endIndent: 20,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              top: 5.0, left: 20, right: 20),
+                          child: Row(
+                            children: <Widget>[
+                              Text(
+                                'Grand Total',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              const Spacer(),
+                              Text(
+                                '₹' " $totalPrice",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1!
+                                    .copyWith(fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          ),
+                        ),
+                        CupertinoButton(
+                          padding: EdgeInsets.zero,
+                          child: Container(
+                            margin: const EdgeInsets.all(20),
+                            height: 48,
+                            decoration: BoxDecoration(
+                              color: Theme.of(context).primaryColor,
+                              borderRadius: BorderRadius.circular(5),
+                            ),
+                            child: const Center(
+                              child: Text("CHECKOUT",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  )),
+                            ),
+                          ),
+                          onPressed: () {},
+                        ),
                       ],
-                    ),
-                  ),
-                  CupertinoButton(
-                    padding: EdgeInsets.zero,
-                    child: Container(
-                      margin: const EdgeInsets.all(20),
-                      height: 48,
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      child: const Center(
-                        child: Text("CHECKOUT",
-                            style: TextStyle(
-                              color: Colors.white,
-                            )),
-                      ),
-                    ),
-                    onPressed: () {},
-                  ),
-                ],
-              ));
+                    ));
+        });
   }
 
   cartEmpty() {
@@ -178,10 +139,10 @@ class _MyCartState extends State<MyCart> {
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
         setState(() {
-          cartList.removeAt(index);
+          store.tproducts.removeAt(index);
         });
       },
-      key: Key(cartList[index]["name"]),
+      key: Key(store.tproducts[index].title),
       background: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
@@ -203,7 +164,7 @@ class _MyCartState extends State<MyCart> {
           child: Row(
             children: <Widget>[
               Image.network(
-                cartList[index]["img"],
+                store.tproducts[index].image,
                 height: 80,
                 width: 80,
               ),
@@ -214,7 +175,7 @@ class _MyCartState extends State<MyCart> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        cartList[index]["name"],
+                        store.tproducts[index].title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.subtitle1!.copyWith(
@@ -241,16 +202,9 @@ class _MyCartState extends State<MyCart> {
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(5))),
                                 ),
-                                onTap: () {
-                                  if (cartList[index]["cartCount"] != 1) {
-                                    setState(() {
-                                      cartList[index]["cartCount"] =
-                                          cartList[index]["cartCount"] - 1;
-                                    });
-                                  }
-                                },
+                                onTap: () {},
                               ),
-                              Text("${cartList[index]["cartCount"]}"),
+                              const Text("2"),
                               GestureDetector(
                                 child: Container(
                                   padding: const EdgeInsets.all(2),
@@ -267,12 +221,7 @@ class _MyCartState extends State<MyCart> {
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(5))),
                                 ),
-                                onTap: () {
-                                  setState(() {
-                                    cartList[index]["cartCount"] =
-                                        cartList[index]["cartCount"] + 1;
-                                  });
-                                },
+                                onTap: () {},
                               )
                             ],
                           ),
@@ -280,7 +229,7 @@ class _MyCartState extends State<MyCart> {
                           Row(
                             children: [
                               Text(
-                                "₹" + cartList[index]["descprice"] + "  ",
+                                "₹ 100",
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1!
@@ -288,7 +237,7 @@ class _MyCartState extends State<MyCart> {
                                         color: Theme.of(context).primaryColor),
                               ),
                               Text(
-                                "₹" + cartList[index]["price"],
+                                "₹ 300",
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle2!
