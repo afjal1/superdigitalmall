@@ -20,10 +20,10 @@ class Product {
       required this.title});
 }
 
-class ProductBlock extends StatelessWidget {
+class ProductCard extends StatelessWidget {
   final Product product;
 
-  const ProductBlock({Key? key, required this.product}) : super(key: key);
+  const ProductCard({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

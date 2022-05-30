@@ -66,13 +66,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget getBody() {
     List<Widget> pages = [
-      Container(
-        alignment: Alignment.center,
-        child: const Text(
-          "Home",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        ),
-      ),
+      const Demo(),
       Container(
         alignment: Alignment.center,
         child: const Text(
@@ -101,6 +95,79 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Row(
+          children: [
+            const Text(
+              "Super Digital Mall",
+              style: TextStyle(
+                  fontSize: 25, fontWeight: FontWeight.bold, color: Colors.red),
+            ),
+            const Spacer(),
+            const Icon(
+              Icons.search,
+              size: 35,
+              color: Colors.black,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Stack(
+              children: [
+                const Icon(
+                  Icons.shopping_cart,
+                  size: 35,
+                  color: Colors.black,
+                ),
+                Positioned(
+                  right: -2,
+                  top: 0,
+                  child: Container(
+                    width: 20,
+                    height: 20,
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Center(
+                      child: Text(
+                        "1",
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+          ],
+        ),
+      ),
+      body: getBody(),
+      bottomNavigationBar: _buildBottomBar(),
+    );
+  }
+}
+
+class Demo extends StatefulWidget {
+  const Demo({Key? key}) : super(key: key);
+
+  @override
+  State<Demo> createState() => _DemoState();
+}
+
+class _DemoState extends State<Demo> {
   @override
   Widget build(BuildContext context) {
     List<Product> tproducts = const [
@@ -164,9 +231,7 @@ class _HomePageState extends State<HomePage> {
     ];
 
     List<Product> products = wproducts + tproducts;
-
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -177,60 +242,8 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 40),
-                    Row(
-                      children: [
-                        const Text(
-                          "Super Digital Mall",
-                          style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red),
-                        ),
-                        const Spacer(),
-                        const Icon(
-                          Icons.search,
-                          size: 35,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Stack(
-                          children: [
-                            const Icon(
-                              Icons.shopping_cart,
-                              size: 35,
-                            ),
-                            Positioned(
-                              right: -2,
-                              top: 0,
-                              child: Container(
-                                width: 20,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    "1",
-                                    style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                      ],
-                    ),
                     const SizedBox(
-                      height: 30,
+                      height: 10,
                     ),
                     Container(
                       height: 200,
@@ -305,7 +318,7 @@ class _HomePageState extends State<HomePage> {
                           ? products.length
                           : tproducts.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return ProductBlock(
+                        return ProductCard(
                             product: storeController.sectionIndex == 0
                                 ? products[index]
                                 : tproducts[index]);
@@ -316,7 +329,6 @@ class _HomePageState extends State<HomePage> {
               }),
         ),
       ),
-      bottomNavigationBar: _buildBottomBar(),
     );
   }
 }

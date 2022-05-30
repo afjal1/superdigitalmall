@@ -24,7 +24,6 @@ class ProductSc extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // _buildVariantButtonsDisplay(),
               Text('\$ ${productss.price}',
                   style: const TextStyle(
                     fontSize: 30,
