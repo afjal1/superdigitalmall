@@ -5,6 +5,7 @@ import '../Controllers/store_controller.dart';
 import '../widgets/bottomItem.dart';
 import '../widgets/custom_animated_bottombar.dart';
 import '../widgets/product_card.dart';
+import 'profile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -33,14 +34,14 @@ class _HomePageState extends State<HomePage> {
         BottomNavyBarItem(
           icon: const Icon(Icons.home),
           title: const Text('Home'),
-          activeColor: Colors.red,
+          activeColor: Theme.of(context).primaryColor,
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
         ),
         BottomNavyBarItem(
           icon: const Icon(Icons.shopping_bag),
           title: const Text('Cart'),
-          activeColor: Colors.red,
+          activeColor: Theme.of(context).primaryColor,
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
         ),
@@ -49,14 +50,14 @@ class _HomePageState extends State<HomePage> {
           title: const Text(
             'Favorite',
           ),
-          activeColor: Colors.red,
+          activeColor: Theme.of(context).primaryColor,
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
         ),
         BottomNavyBarItem(
           icon: const Icon(Icons.person),
           title: const Text('Profile'),
-          activeColor: Colors.red,
+          activeColor: Theme.of(context).primaryColor,
           inactiveColor: _inactiveColor,
           textAlign: TextAlign.center,
         ),
@@ -81,13 +82,7 @@ class _HomePageState extends State<HomePage> {
           style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
         ),
       ),
-      Container(
-        alignment: Alignment.center,
-        child: const Text(
-          "Settings",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        ),
-      ),
+      MyProfile(),
     ];
     return IndexedStack(
       index: _currentIndex,
@@ -104,10 +99,12 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         title: Row(
           children: [
-            const Text(
+            Text(
               "Super Digital Mall",
               style: TextStyle(
-                  fontSize: 25, fontWeight: FontWeight.bold, color: Colors.red),
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor),
             ),
             const Spacer(),
             const Icon(
@@ -132,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                     width: 20,
                     height: 20,
                     decoration: BoxDecoration(
-                      color: Colors.red,
+                      color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: const Center(
@@ -286,14 +283,14 @@ class _DemoState extends State<Demo> {
                                           fontWeight: FontWeight.bold,
                                           color: storeController.sectionIndex ==
                                                   index
-                                              ? Colors.red
+                                              ? Theme.of(context).primaryColor
                                               : Colors.black),
                                     ),
                                     Container(
                                       decoration: BoxDecoration(
                                           color: index ==
                                                   storeController.sectionIndex
-                                              ? Colors.red
+                                              ? Theme.of(context).primaryColor
                                               : Colors.white,
                                           borderRadius:
                                               BorderRadius.circular(25)),
