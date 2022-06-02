@@ -20,101 +20,155 @@ class Product {
       required this.title});
 }
 
-class ProductCard extends StatelessWidget {
-  final Product product;
+class ProductCard extends StatefulWidget {
+  final List<Product> product;
 
   const ProductCard({Key? key, required this.product}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return GetBuilder<StoreController>(
-        init: StoreController(),
-        builder: (storeController) {
-          return InkWell(
-            onTap: () {
-              // Navigator.push(
-              //   context,
-              //   PageRouteBuilder(
-              //     pageBuilder: (c, a1, a2) => ProductSc(
-              //       product: product,
-              //     ),
-              //     transitionsBuilder: (c, anim, a2, child) =>
-              //         FadeTransition(opacity: anim, child: child),
-              //     transitionDuration: const Duration(milliseconds: 20),
-              //   ),
-              // );
+  State<ProductCard> createState() => _ProductCardState();
+}
 
-              Navigator.of(context).push(SecondPageRoute(product));
-              // Get.to(() => ProductSc(
-              //       product: product,
-              //     ));
-            },
-            child: Card(
-              color: Colors.white,
-              child: SizedBox(
+class _ProductCardState extends State<ProductCard> {
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+        padding: const EdgeInsets.all(20),
+        crossAxisCount: 2,
+        shrinkWrap: true,
+        childAspectRatio: 0.8,
+        physics: const BouncingScrollPhysics(),
+        mainAxisSpacing: 15,
+        crossAxisSpacing: 10,
+        children: List.generate(
+          widget.product.length,
+          (index) {
+            return Container(
+              padding: const EdgeInsets.all(9),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3), // changes position of shadow
+                  ),
+                ],
+              ),
+              width: MediaQuery.of(context).size.width * 0.4,
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(() => ProductSc(product: widget.product[index]));
+                },
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Hero(
-                      tag: 'product_image_${product.id}',
-                      child: Container(
-                          height: 250,
-                          decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.5),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: const Offset(
-                                      0, 3), // changes position of shadow
-                                )
-                              ],
-                              image: DecorationImage(
-                                  image: NetworkImage(product.image),
-                                  fit: BoxFit.cover),
-                              borderRadius: BorderRadius.circular(25))),
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Expanded(
+                      child: Stack(
+                        children: [
+                          Positioned.fill(
+                            child: Hero(
+                              tag: 'product_image_${widget.product[index].id}',
+                              child: Image.network(
+                                widget.product[index].image,
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            right: 5,
+                            top: 5,
+                            child: InkWell(
+                              child: Container(
+                                width: 20,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: Icon(
+                                  !storeController.likedProducts
+                                          .contains(widget.product[index].id)
+                                      ? Icons.favorite_border
+                                      : Icons.favorite,
+                                  size: 15,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                              onTap: () {
+                                setState(() {
+                                  storeController.addToLiked(
+                                      id: widget.product[index].id);
+                                });
+                              },
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                    const SizedBox(
-                      height: 10,
+                    Text(
+                      widget.product[index].title,
+                      style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w700,
+                          ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                     Row(
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              product.title,
-                            ),
-                            Text(
-                              "₹${product.price.toString()}",
-                            ),
-                          ],
+                        Text(
+                          "₹" + widget.product[index].price.toString(),
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
                         ),
                         const Spacer(),
-                        GestureDetector(
+                        InkWell(
                           onTap: () {
-                            storeController.addToLiked(id: product.id);
+                            Get.snackbar(
+                                "Added to cart", "Product added to cart",
+                                backgroundColor: Theme.of(context).primaryColor,
+                                colorText: Colors.white,
+                                snackPosition: SnackPosition.BOTTOM,
+                                icon: const Icon(
+                                  Icons.shopping_bag,
+                                  color: Colors.white,
+                                ),
+                                duration: const Duration(seconds: 1),
+                                margin: const EdgeInsets.all(16),
+                                padding: const EdgeInsets.all(12));
                           },
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
+                          child: Container(
+                            margin: const EdgeInsets.only(bottom: 5, right: 5),
+                            width: 24,
+                            height: 24,
+                            decoration: BoxDecoration(
+                                color: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.3),
+                                borderRadius: BorderRadius.circular(6)),
                             child: Icon(
-                                !storeController.likedProducts
-                                        .contains(product.id)
-                                    ? Icons.favorite_border
-                                    : Icons.favorite,
-                                color: Colors.red),
+                              Icons.add,
+                              size: 12,
+                              color: Theme.of(context).primaryColor,
+                            ),
                           ),
-                        ),
+                        )
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
-            ),
-          );
-        });
+            );
+          },
+        ));
   }
 }
 

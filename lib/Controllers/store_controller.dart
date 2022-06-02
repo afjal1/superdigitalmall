@@ -63,7 +63,7 @@ class StoreController extends GetxController {
     Product(
         id: 3,
         image:
-            "https://scontent.fdel6-1.fna.fbcdn.net/v/t45.5328-4/40483663_1844080555641544_6972739719834632192_n.jpg?stp=dst-jpg_s960x960&_nc_cat=104&ccb=1-7&_nc_sid=c48759&_nc_ohc=UQOmsEpKAcwAX82F_X4&_nc_ht=scontent.fdel6-1.fna&oh=00_AT9tm58PaW244W_cCTHxsAHEFYECIPx3lL8qWJfuOft5Cw&oe=6297C4C9",
+            "https://scontent.fdel6-1.fna.fbcdn.net/v/t1.6435-9/120217203_3977210248960865_7201215298107640967_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=3z01nMkZpuwAX-0pdcJ&_nc_ht=scontent.fdel6-1.fna&oh=00_AT_G5Q7AmvhNlJir93nqFB421lLxY9Aw7oPACfNZ0yNAYg&oe=62B7981E",
         price: 70,
         title: "Product13"),
     Product(

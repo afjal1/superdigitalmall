@@ -7,6 +7,7 @@ import '../widgets/custom_animated_bottombar.dart';
 import '../widgets/product_card.dart';
 import 'cart.dart';
 import 'profile.dart';
+import 'wishlist.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -70,13 +71,7 @@ class _HomePageState extends State<HomePage> {
     List<Widget> pages = [
       const Demo(),
       MyCart(),
-      Container(
-        alignment: Alignment.center,
-        child: const Text(
-          "Messages",
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-        ),
-      ),
+      Wishlist(),
       MyProfile(),
     ];
     return IndexedStack(
@@ -169,103 +164,104 @@ class _DemoState extends State<Demo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: GetBuilder<StoreController>(
-              init: StoreController(),
-              builder: (storeController) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      height: 200,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(25),
-                          image: const DecorationImage(
-                              image: NetworkImage(
-                                  "https://scontent.fdel6-1.fna.fbcdn.net/v/t1.6435-9/90330179_3404838302864732_366306323177930752_n.jpg?stp=dst-jpg_s960x960&_nc_cat=111&ccb=1-7&_nc_sid=e3f864&_nc_ohc=K5IHmlXNEXwAX9SGuTR&_nc_ht=scontent.fdel6-1.fna&oh=00_AT_ORyLgZbE6aRYHDFhiffd1h67g64GkuTP5tpaBaSLpZg&oe=62BA4077"),
-                              fit: BoxFit.cover)),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    SizedBox(
-                      height: 40,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: storeController.sections.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                            onTap: () {
-                              storeController.setSection(kValue: index);
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 15),
-                              child: Container(
-                                width: 100,
-                                height: 20,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25)),
-                                child: Center(
-                                    child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      storeController.sections[index],
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: storeController.sectionIndex ==
-                                                  index
-                                              ? Theme.of(context).primaryColor
-                                              : Colors.black),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          color: index ==
-                                                  storeController.sectionIndex
-                                              ? Theme.of(context).primaryColor
-                                              : Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(25)),
-                                      width: 20,
-                                      height: 5,
-                                    )
-                                  ],
-                                )),
-                              ),
-                            ),
-                          );
-                        },
+      body: ScrollConfiguration(
+        behavior: CustomScrollBehavior(),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GetBuilder<StoreController>(
+                init: StoreController(),
+                builder: (storeController) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              childAspectRatio: 0.6, crossAxisCount: 2),
-                      shrinkWrap: true,
-                      itemCount: storeController.sectionIndex == 0
-                          ? storeController.wproducts.length
-                          : storeController.tproducts.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return ProductCard(
-                            product: storeController.sectionIndex == 0
-                                ? storeController.wproducts[index]
-                                : storeController.tproducts[index]);
-                      },
-                    ),
-                  ],
-                );
-              }),
+                      Container(
+                        height: 200,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(25),
+                            image: const DecorationImage(
+                                image: NetworkImage(
+                                    "https://scontent.fdel6-1.fna.fbcdn.net/v/t1.6435-9/90330179_3404838302864732_366306323177930752_n.jpg?stp=dst-jpg_s960x960&_nc_cat=111&ccb=1-7&_nc_sid=e3f864&_nc_ohc=K5IHmlXNEXwAX9SGuTR&_nc_ht=scontent.fdel6-1.fna&oh=00_AT_ORyLgZbE6aRYHDFhiffd1h67g64GkuTP5tpaBaSLpZg&oe=62BA4077"),
+                                fit: BoxFit.cover)),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      SizedBox(
+                        height: 40,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: storeController.sections.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () {
+                                storeController.setSection(kValue: index);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 15),
+                                child: Container(
+                                  width: 100,
+                                  height: 20,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(25)),
+                                  child: Center(
+                                      child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        storeController.sections[index],
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: storeController
+                                                        .sectionIndex ==
+                                                    index
+                                                ? Theme.of(context).primaryColor
+                                                : Colors.black),
+                                      ),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                            color: index ==
+                                                    storeController.sectionIndex
+                                                ? Theme.of(context).primaryColor
+                                                : Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(25)),
+                                        width: 20,
+                                        height: 5,
+                                      )
+                                    ],
+                                  )),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      ProductCard(
+                          product: storeController.sectionIndex == 0
+                              ? storeController.tproducts
+                              : storeController.wproducts)
+                    ],
+                  );
+                }),
+          ),
         ),
       ),
     );
+  }
+}
+
+//For removing Scroll Glow
+class CustomScrollBehavior extends ScrollBehavior {
+  @override
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }

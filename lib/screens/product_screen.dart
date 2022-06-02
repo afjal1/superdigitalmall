@@ -24,7 +24,7 @@ class ProductSc extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('\$ ${productss.price}',
+              Text('₹ ${productss.price}',
                   style: const TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
