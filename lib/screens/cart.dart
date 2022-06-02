@@ -19,7 +19,7 @@ class _MyCartState extends State<MyCart> {
         init: StoreController(),
         builder: (store) {
           return Scaffold(
-              body: store.tproducts.isEmpty
+              body: store.myProducts.isEmpty
                   ? cartEmpty()
                   : Column(
                       children: <Widget>[
@@ -27,7 +27,7 @@ class _MyCartState extends State<MyCart> {
                           child: ListView.builder(
                             shrinkWrap: true,
                             padding: const EdgeInsets.symmetric(horizontal: 10),
-                            itemCount: store.tproducts.length,
+                            itemCount: store.myProducts.length,
                             physics: const BouncingScrollPhysics(),
                             itemBuilder: (context, index) {
                               return listItem(index);
@@ -139,10 +139,10 @@ class _MyCartState extends State<MyCart> {
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
         setState(() {
-          store.tproducts.removeAt(index);
+          store.myProducts.removeAt(index);
         });
       },
-      key: Key(store.tproducts[index].title),
+      key: Key(store.myProducts[index].title),
       background: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
@@ -164,7 +164,7 @@ class _MyCartState extends State<MyCart> {
           child: Row(
             children: <Widget>[
               Image.network(
-                store.tproducts[index].image,
+                store.myProducts[index].image,
                 height: 80,
                 width: 80,
               ),
@@ -175,7 +175,7 @@ class _MyCartState extends State<MyCart> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        store.tproducts[index].title,
+                        store.myProducts[index].title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.subtitle1!.copyWith(

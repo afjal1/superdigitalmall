@@ -245,8 +245,8 @@ class _DemoState extends State<Demo> {
                       ),
                       ProductCard(
                           product: storeController.sectionIndex == 0
-                              ? storeController.tproducts
-                              : storeController.wproducts)
+                              ? storeController.myProducts
+                              : storeController.shirts)
                     ],
                   );
                 }),

@@ -90,7 +90,7 @@ class _ProductCardState extends State<ProductCard> {
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                                 child: Icon(
-                                  !storeController.likedProducts
+                                  !storeController.favProducts
                                           .contains(widget.product[index].id)
                                       ? Icons.favorite_border
                                       : Icons.favorite,

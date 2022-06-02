@@ -10,7 +10,7 @@ class _WishlistState extends State<Wishlist> {
   @override
   Widget build(BuildContext context) {
     return ProductCard(
-      product: storeController.wproducts,
+      product: storeController.myProducts,
     );
   }
 }

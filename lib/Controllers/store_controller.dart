@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../widgets/product_card.dart';
 
 class StoreController extends GetxController {
-  List<int> likedProducts = [];
+  List<int> favProducts = [];
 
   int sectionIndex = 0;
 
@@ -13,15 +13,15 @@ class StoreController extends GetxController {
   }
 
   addToLiked({required int id}) {
-    if (likedProducts.contains(id)) {
-      likedProducts.remove(id);
+    if (favProducts.contains(id)) {
+      favProducts.remove(id);
     } else {
-      likedProducts.add(id);
+      favProducts.add(id);
     }
     update();
   }
 
-  List<Product> tproducts = const [
+  List<Product> myProducts = const [
     Product(
         id: 5,
         image:
@@ -47,7 +47,7 @@ class StoreController extends GetxController {
         price: 45,
         title: "Product14"),
   ];
-  List<Product> wproducts = const [
+  List<Product> shirts = const [
     Product(
         id: 1,
         image:
