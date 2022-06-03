@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:superdigitalmall/ApiHelper/model.dart';
 import 'package:superdigitalmall/Controllers/store_controller.dart';
 
 final StoreController store = Get.put(StoreController());
@@ -11,15 +12,19 @@ class MyCart extends StatefulWidget {
 }
 
 class _MyCartState extends State<MyCart> {
-  double disPrice = 10, oriPrice = 1000, delCharge = 100, totalPrice = 890;
+  double disPrice = 10, oriPrice = 1000, delCharge = 100;
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StoreController>(
         init: StoreController(),
         builder: (store) {
+          List<Products> products = store.products
+              .where((element) => store.cartProducts.contains(element.id))
+              .toList();
+
           return Scaffold(
-              body: store.myProducts.isEmpty
+              body: products.isEmpty
                   ? cartEmpty()
                   : Column(
                       children: <Widget>[
@@ -27,10 +32,10 @@ class _MyCartState extends State<MyCart> {
                           child: ListView.builder(
                             shrinkWrap: true,
                             padding: const EdgeInsets.symmetric(horizontal: 10),
-                            itemCount: store.myProducts.length,
+                            itemCount: products.length,
                             physics: const BouncingScrollPhysics(),
                             itemBuilder: (context, index) {
-                              return listItem(index);
+                              return listItem(index, products[index]);
                             },
                           ),
                         ),
@@ -43,7 +48,7 @@ class _MyCartState extends State<MyCart> {
                                 'Total Price',
                               ),
                               const Spacer(),
-                              Text("₹" "$oriPrice")
+                              Text("₹" "${store.cartTotal}"),
                             ],
                           ),
                         ),
@@ -92,7 +97,7 @@ class _MyCartState extends State<MyCart> {
                               ),
                               const Spacer(),
                               Text(
-                                '₹' " $totalPrice",
+                                '₹' " ${store.cartTotal + 100 - 10}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1!
@@ -134,15 +139,16 @@ class _MyCartState extends State<MyCart> {
     );
   }
 
-  Widget listItem(int index) {
+  Widget listItem(int index, Products product) {
     return Dismissible(
       direction: DismissDirection.endToStart,
       onDismissed: (direction) {
         setState(() {
-          store.myProducts.removeAt(index);
+          store.cartProducts.remove(product.id!);
+          store.getCartCount();
         });
       },
-      key: Key(store.myProducts[index].title),
+      key: UniqueKey(),
       background: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
@@ -164,7 +170,7 @@ class _MyCartState extends State<MyCart> {
           child: Row(
             children: <Widget>[
               Image.network(
-                store.myProducts[index].image,
+                product.image!,
                 height: 80,
                 width: 80,
               ),
@@ -175,7 +181,7 @@ class _MyCartState extends State<MyCart> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        store.myProducts[index].title,
+                        product.title!,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.subtitle1!.copyWith(
@@ -202,9 +208,18 @@ class _MyCartState extends State<MyCart> {
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(5))),
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  if (product.qty != 1) {
+                                    product.qty = product.qty! - 1;
+                                  } else {
+                                    store.cartProducts.remove(product.id!);
+                                  }
+                                  setState(() {});
+                                },
                               ),
-                              const Text("2"),
+                              Text(product.qty.toString() == 'null'
+                                  ? 1.toString()
+                                  : product.qty.toString()),
                               GestureDetector(
                                 child: Container(
                                   padding: const EdgeInsets.all(2),
@@ -221,31 +236,21 @@ class _MyCartState extends State<MyCart> {
                                       borderRadius: const BorderRadius.all(
                                           Radius.circular(5))),
                                 ),
-                                onTap: () {},
+                                onTap: () {
+                                  product.qty = product.qty! + 1;
+                                  setState(() {});
+                                },
                               )
                             ],
                           ),
                           const Spacer(),
-                          Row(
-                            children: [
-                              Text(
-                                "₹ 100",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1!
-                                    .copyWith(
-                                        color: Theme.of(context).primaryColor),
-                              ),
-                              Text(
-                                "₹ 300",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle2!
-                                    .copyWith(
-                                        color: Colors.black,
-                                        decoration: TextDecoration.lineThrough),
-                              )
-                            ],
+                          Text(
+                            '₹ ${product.price! * double.parse(product.qty!.toString())}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1!
+                                .copyWith(
+                                    color: Theme.of(context).primaryColor),
                           ),
                         ],
                       ),

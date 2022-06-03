@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget getBody() {
     List<Widget> pages = [
-      const Demo(),
+      const HomeScreen(),
       MyCart(),
       Wishlist(),
       MyProfile(),
@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                     color: Colors.black,
                   ),
                   Positioned(
-                    right: -2,
+                    right: 2,
                     top: 0,
                     child: Container(
                       width: 20,
@@ -127,14 +127,16 @@ class _HomePageState extends State<HomePage> {
                         color: Theme.of(context).primaryColor,
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: const Center(
-                        child: Text(
-                          "1",
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        ),
+                      child: Center(
+                        child: GetBuilder<StoreController>(builder: (store) {
+                          return Text(
+                            store.cartCount.toString(),
+                            style: const TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          );
+                        }),
                       ),
                     ),
                   ),
@@ -153,14 +155,14 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class Demo extends StatefulWidget {
-  const Demo({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<Demo> createState() => _DemoState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _DemoState extends State<Demo> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -196,11 +198,14 @@ class _DemoState extends State<Demo> {
                         child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          itemCount: storeController.sections.length,
+                          itemCount: storeController.sectionss!.length,
                           itemBuilder: (BuildContext context, int index) {
                             return GestureDetector(
                               onTap: () {
-                                storeController.setSection(kValue: index);
+                                storeController.setSection(
+                                    kValue: index,
+                                    kSection:
+                                        storeController.sectionss![index]);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 15),
@@ -214,9 +219,9 @@ class _DemoState extends State<Demo> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        storeController.sections[index],
+                                        storeController.sectionss![index],
                                         style: TextStyle(
-                                            fontSize: 15,
+                                            fontSize: 13,
                                             fontWeight: FontWeight.bold,
                                             color: storeController
                                                         .sectionIndex ==
@@ -245,8 +250,8 @@ class _DemoState extends State<Demo> {
                       ),
                       ProductCard(
                           product: storeController.sectionIndex == 0
-                              ? storeController.myProducts
-                              : storeController.shirts)
+                              ? storeController.products
+                              : storeController.categoryProducts),
                     ],
                   );
                 }),

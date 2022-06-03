@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-
-import '../widgets/product_card.dart';
+import 'package:superdigitalmall/ApiHelper/model.dart';
 
 class ProductSc extends StatelessWidget {
-  final Product product;
+  final Products product;
   const ProductSc({Key? key, required this.product}) : super(key: key);
 
-  Widget _buildProductDetailsDisplay(Product productss) {
+  Widget _buildProductDetailsDisplay(Products productss, BuildContext context) {
     const spacer = SizedBox(
       height: 15,
     );
@@ -15,9 +14,8 @@ class ProductSc extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('SKU: 311337'),
           spacer,
-          Text(productss.title,
+          Text(productss.title!,
               style: const TextStyle(
                   fontSize: 24, fontWeight: FontWeight.bold, height: 1.5)),
           spacer,
@@ -42,26 +40,22 @@ class ProductSc extends StatelessWidget {
             ]),
           ),
           const SizedBox(height: 5),
-          const Text('Delivery to Akram - Dallas 75204'),
+          Text('Delivery to Afjal - New Delhi 110080',
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).primaryColor)),
           spacer,
           const Text(
-            'Details',
+            'Details :',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
           ),
           spacer,
-          const Text(
-            'Our Maddox collection mixes and matches finishes and features,'
-            ' creating the perfect combination for your home. Steel shades in'
-            ' a variety of shapes, sizes and modern hues pair matte exteriors '
-            'and glossy white interiors that reflect light beautifully, accented'
-            ' by decorative socket caps and ceiling plates in a range of finishes.'
-            ' Strikingly simple with clean geometry, this large dome pendant light '
-            'contrasts a softly rounded matte mustard yellow shade with its bright'
-            ' inner surface. Hang the adjustable-height pendant over a kitchen island,'
-            ' reading nook or dining table for a bold, graphic look and useful',
+          Text(
+            productss.description!,
             textAlign: TextAlign.justify,
-            style: TextStyle(
-                fontWeight: FontWeight.w300, fontSize: 13, height: 1.5),
+            style: const TextStyle(
+                fontWeight: FontWeight.w500, fontSize: 16, height: 1.5),
           ),
         ],
       ),
@@ -138,14 +132,14 @@ class ProductSc extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(25),
                     image: DecorationImage(
-                        image: NetworkImage(product.image),
+                        image: NetworkImage(product.image!),
                         fit: BoxFit.contain)),
               ),
             ),
             const SizedBox(
               height: 30,
             ),
-            _buildProductDetailsDisplay(product),
+            _buildProductDetailsDisplay(product, context),
           ],
         ),
       ),
