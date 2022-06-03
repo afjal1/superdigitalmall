@@ -6,6 +6,7 @@ import '../widgets/bottomItem.dart';
 import '../widgets/custom_animated_bottombar.dart';
 import '../widgets/product_card.dart';
 import 'cart.dart';
+import 'my_orders.dart';
 import 'profile.dart';
 import 'wishlist.dart';
 
@@ -57,6 +58,13 @@ class _HomePageState extends State<HomePage> {
           textAlign: TextAlign.center,
         ),
         BottomNavyBarItem(
+          icon: const Icon(Icons.card_giftcard_outlined),
+          title: const Text('Orders'),
+          activeColor: Theme.of(context).primaryColor,
+          inactiveColor: _inactiveColor,
+          textAlign: TextAlign.center,
+        ),
+        BottomNavyBarItem(
           icon: const Icon(Icons.person),
           title: const Text('Profile'),
           activeColor: Theme.of(context).primaryColor,
@@ -72,6 +80,7 @@ class _HomePageState extends State<HomePage> {
       const HomeScreen(),
       MyCart(),
       Wishlist(),
+      MyOrder(),
       MyProfile(),
     ];
     return IndexedStack(
@@ -85,22 +94,22 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
-        backgroundColor: Colors.white,
         title: Row(
           children: [
-            Text(
+            const Text(
               "Super Digital Mall",
               style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColor),
+                  color: Colors.white),
             ),
             const Spacer(),
             const Icon(
               Icons.search,
               size: 35,
-              color: Colors.black,
+              color: Colors.white,
             ),
             const SizedBox(
               width: 10,
@@ -115,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                   const Icon(
                     Icons.shopping_cart,
                     size: 35,
-                    color: Colors.black,
+                    color: Colors.white,
                   ),
                   Positioned(
                     right: 2,
@@ -124,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                       width: 20,
                       height: 20,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Center(
@@ -134,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                             style: const TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                                color: Colors.red),
                           );
                         }),
                       ),

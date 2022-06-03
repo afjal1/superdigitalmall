@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:superdigitalmall/widgets/product_card.dart';
 
 import '../Controllers/store_controller.dart';
+import 'cart.dart';
 
 class Wishlist extends StatefulWidget {
   @override
@@ -18,14 +19,8 @@ class _WishlistState extends State<Wishlist> {
                   (product) => storeController.favProducts.contains(product.id))
               .toList()
               .isEmpty
-          ? const Center(
-              child: Text(
-              'No products in wishlist',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ))
+          ? cartEmpty(context, 'Your Wishlist is empty',
+              "Looking like you haven't added anything to your wishlist yet")
           : ProductCard(
               product: storeController.products
                   .where((product) =>

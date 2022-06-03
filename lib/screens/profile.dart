@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:superdigitalmall/screens/my_orders.dart';
 
 class MyProfile extends StatefulWidget {
   @override
@@ -17,34 +19,15 @@ class _MyProfileState extends State<MyProfile> {
           children: [
             _getHeader(),
             const Divider(),
-            _myOrder(
-              'My Orders',
-              Icons.card_giftcard_outlined,
-            ),
-            _myOrder(
-              'Profile Edit',
-              Icons.person_outline,
-            ),
-            _myOrder(
-              'My Address',
-              Icons.location_on_outlined,
-            ),
-            _myOrder(
-              'Settings',
-              Icons.settings,
-            ),
-            _myOrder(
-              'Change Password',
-              Icons.password_outlined,
-            ),
-            _myOrder(
-              'Coupons',
-              Icons.card_giftcard,
-            ),
-            _myOrder(
-              'Logout',
-              Icons.exit_to_app,
-            ),
+            _myOrder('My Orders', Icons.card_giftcard_outlined, () {
+              Get.to(() => MyOrder());
+            }),
+            _myOrder('Profile Edit', Icons.person_outline, () {}),
+            _myOrder('My Address', Icons.location_on_outlined, () {}),
+            _myOrder('Settings', Icons.settings, () {}),
+            _myOrder('Change Password', Icons.password_outlined, () {}),
+            _myOrder('Coupons', Icons.card_giftcard, () {}),
+            _myOrder('Logout', Icons.exit_to_app, () {}),
           ],
         ),
       ),
@@ -103,31 +86,38 @@ class _MyProfileState extends State<MyProfile> {
         ));
   }
 
-  _myOrder(String text, IconData icon) {
-    return Container(
-      margin: const EdgeInsets.only(top: 10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(5),
-          border: Border.all(color: Colors.grey)),
-      child: ListTile(
-        dense: true,
-        title: Text(
-          text,
-          style: const TextStyle(fontSize: 15),
+  _myOrder(String text, IconData icon, VoidCallback onPressed) {
+    return InkWell(
+      onTap: () {
+        print('Mosjdfi');
+
+        onPressed();
+      },
+      child: Container(
+        margin: const EdgeInsets.only(top: 10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(5),
+            border: Border.all(color: Colors.grey)),
+        child: ListTile(
+          dense: true,
+          title: Text(
+            text,
+            style: const TextStyle(fontSize: 15),
+          ),
+          leading: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(5)),
+              child: Icon(
+                icon,
+                color: Theme.of(context).primaryColor,
+              )),
+          trailing: Icon(
+            Icons.keyboard_arrow_right,
+            color: Theme.of(context).primaryColor,
+          ),
+          onTap: () {},
         ),
-        leading: Container(
-            decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(5)),
-            child: Icon(
-              icon,
-              color: Theme.of(context).primaryColor,
-            )),
-        trailing: Icon(
-          Icons.keyboard_arrow_right,
-          color: Theme.of(context).primaryColor,
-        ),
-        onTap: () {},
       ),
     );
   }

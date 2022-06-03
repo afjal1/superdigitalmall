@@ -27,7 +27,8 @@ class _MyCartState extends State<MyCart> {
 
           return Scaffold(
               body: products.isEmpty
-                  ? cartEmpty()
+                  ? cartEmpty(context, 'Your Cart is Empty',
+                      "Looking like you haven't added anything to your cart yet")
                   : Column(
                       children: <Widget>[
                         Expanded(
@@ -131,16 +132,6 @@ class _MyCartState extends State<MyCart> {
                       ],
                     ));
         });
-  }
-
-  cartEmpty() {
-    return Center(
-      child: SingleChildScrollView(
-        child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [noCartText(context), noCartDec(context), shopNow()]),
-      ),
-    );
   }
 
   Widget listItem(int index, Products product) {
@@ -268,46 +259,58 @@ class _MyCartState extends State<MyCart> {
       ),
     );
   }
+}
 
-  noCartText(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.only(top: 20),
-        child: Text("Your Cart Is Empty",
-            style: Theme.of(context).textTheme.headline5!.copyWith(
-                color: Theme.of(context).primaryColor,
-                fontWeight: FontWeight.normal)));
-  }
-
-  noCartDec(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
-      child: Text("Looking like you haven't added anything to your cart yet",
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline6!.copyWith(
-                color: Colors.grey,
-                fontWeight: FontWeight.normal,
-              )),
-    );
-  }
-
-  shopNow() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 28.0),
-      child: CupertinoButton(
-        child: Container(
-            width: MediaQuery.of(context).size.width * 0.7,
-            height: 45,
-            alignment: FractionalOffset.center,
-            decoration: BoxDecoration(
+noCartText(BuildContext context, String val) {
+  return Container(
+      padding: const EdgeInsets.only(top: 20),
+      child: Text(val,
+          style: Theme.of(context).textTheme.headline5!.copyWith(
               color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.circular(5),
-            ),
-            child: Text('Shop Now',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline6!.copyWith(
-                    color: Colors.white, fontWeight: FontWeight.normal))),
-        onPressed: () {},
-      ),
-    );
-  }
+              fontWeight: FontWeight.normal)));
+}
+
+noCartDec(BuildContext context, String val) {
+  return Container(
+    padding: const EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
+    child: Text(val,
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.headline6!.copyWith(
+              color: Colors.grey,
+              fontWeight: FontWeight.normal,
+            )),
+  );
+}
+
+shopNow(BuildContext context) {
+  return Padding(
+    padding: const EdgeInsets.only(top: 28.0),
+    child: CupertinoButton(
+      child: Container(
+          width: MediaQuery.of(context).size.width * 0.7,
+          height: 45,
+          alignment: FractionalOffset.center,
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor,
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: Text('Shop Now',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline6!.copyWith(
+                  color: Colors.white, fontWeight: FontWeight.normal))),
+      onPressed: () {},
+    ),
+  );
+}
+
+cartEmpty(BuildContext context, String val, String val2) {
+  return Center(
+    child: SingleChildScrollView(
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        noCartText(context, val),
+        noCartDec(context, val2),
+        shopNow(context)
+      ]),
+    ),
+  );
 }
