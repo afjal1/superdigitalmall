@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:superdigitalmall/ApiHelper/model.dart';
 import 'package:superdigitalmall/Controllers/store_controller.dart';
 
+import 'checkout.dart';
+
 final StoreController store = Get.put(StoreController());
 
 class MyCart extends StatefulWidget {
@@ -122,7 +124,9 @@ class _MyCartState extends State<MyCart> {
                                   )),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(() => Checkout());
+                          },
                         ),
                       ],
                     ));
