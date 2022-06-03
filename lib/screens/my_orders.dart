@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class MyOrder extends StatefulWidget {
+  const MyOrder({Key? key}) : super(key: key);
+
   @override
   _MyOrderState createState() => _MyOrderState();
 }
@@ -23,10 +25,10 @@ class _MyOrderState extends State<MyOrder> {
                     ),
                     borderRadius: BorderRadius.circular(5)),
                 child: TabBar(
-                  tabs: <Widget>[
+                  tabs: const <Widget>[
                     Tab(
-                      child: Container(
-                        child: const Text(
+                      child: SizedBox(
+                        child: Text(
                           "On Going",
                           style: TextStyle(
                             fontSize: 18,
@@ -34,7 +36,7 @@ class _MyOrderState extends State<MyOrder> {
                         ),
                       ),
                     ),
-                    const Tab(
+                    Tab(
                       child: Text("Past Orders",
                           style: TextStyle(
                             fontSize: 18,
@@ -48,7 +50,7 @@ class _MyOrderState extends State<MyOrder> {
                   labelColor: Theme.of(context).primaryColor,
                 ),
               ),
-              Expanded(
+              const Expanded(
                 child: TabBarView(children: [
                   OnGoing(),
                   PastOrder(),
@@ -376,6 +378,8 @@ List orderList = [
 ];
 
 class OnGoing extends StatefulWidget {
+  const OnGoing({Key? key}) : super(key: key);
+
   @override
   _OnGoingState createState() => _OnGoingState();
 }
@@ -476,6 +480,8 @@ class _OnGoingState extends State<OnGoing> {
 }
 
 class PastOrder extends StatefulWidget {
+  const PastOrder({Key? key}) : super(key: key);
+
   @override
   _PastOrderState createState() => _PastOrderState();
 }

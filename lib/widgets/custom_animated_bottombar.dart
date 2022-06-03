@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'bottomItem.dart';
+import 'bottom_Item.dart';
 
 class CustomAnimatedBottomBar extends StatelessWidget {
   const CustomAnimatedBottomBar({

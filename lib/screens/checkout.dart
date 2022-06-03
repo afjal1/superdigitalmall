@@ -7,6 +7,8 @@ import '../Controllers/store_controller.dart';
 import 'confirm_order.dart';
 
 class Checkout extends StatefulWidget {
+  const Checkout({Key? key}) : super(key: key);
+
   @override
   _CheckoutState createState() => _CheckoutState();
 }

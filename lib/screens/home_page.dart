@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../Controllers/store_controller.dart';
-import '../widgets/bottomItem.dart';
+import '../widgets/bottom_Item.dart';
 import '../widgets/custom_animated_bottombar.dart';
 import '../widgets/product_card.dart';
 import 'cart.dart';
@@ -78,10 +78,10 @@ class _HomePageState extends State<HomePage> {
   Widget getBody() {
     List<Widget> pages = [
       const HomeScreen(),
-      MyCart(),
-      Wishlist(),
-      MyOrder(),
-      MyProfile(),
+      const MyCart(),
+      const Wishlist(),
+      const MyOrder(),
+      const MyProfile(),
     ];
     return IndexedStack(
       index: _currentIndex,

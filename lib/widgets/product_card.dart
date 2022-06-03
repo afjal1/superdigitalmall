@@ -78,7 +78,6 @@ class _ProductCardState extends State<ProductCard> {
     return GetBuilder<StoreController>(
         init: StoreController(),
         builder: (storeController) {
-          print('product card');
           return storeController.isLoading
               ? buildShimmer(context)
               : GridView.count(

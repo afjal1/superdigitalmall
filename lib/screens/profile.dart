@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:superdigitalmall/screens/my_orders.dart';
 
 class MyProfile extends StatefulWidget {
+  const MyProfile({Key? key}) : super(key: key);
+
   @override
   _MyProfileState createState() => _MyProfileState();
 }
@@ -20,7 +22,7 @@ class _MyProfileState extends State<MyProfile> {
             _getHeader(),
             const Divider(),
             _myOrder('My Orders', Icons.card_giftcard_outlined, () {
-              Get.to(() => MyOrder());
+              Get.to(() => const MyOrder());
             }),
             _myOrder('Profile Edit', Icons.person_outline, () {}),
             _myOrder('My Address', Icons.location_on_outlined, () {}),
@@ -69,15 +71,13 @@ class _MyProfileState extends State<MyProfile> {
                           fontWeight: FontWeight.bold,
                           fontSize: 20),
                     ),
-                    email != null
-                        ? Text(
-                            email,
-                            style: Theme.of(context)
-                                .textTheme
-                                .subtitle2!
-                                .copyWith(color: Colors.black),
-                          )
-                        : Container(),
+                    Text(
+                      email,
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle2!
+                          .copyWith(color: Colors.black),
+                    )
                   ],
                 ),
               ],
@@ -89,8 +89,6 @@ class _MyProfileState extends State<MyProfile> {
   _myOrder(String text, IconData icon, VoidCallback onPressed) {
     return InkWell(
       onTap: () {
-        print('Mosjdfi');
-
         onPressed();
       },
       child: Container(

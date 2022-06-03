@@ -9,6 +9,8 @@ import 'checkout.dart';
 final StoreController store = Get.put(StoreController());
 
 class MyCart extends StatefulWidget {
+  const MyCart({Key? key}) : super(key: key);
+
   @override
   _MyCartState createState() => _MyCartState();
 }
@@ -126,7 +128,7 @@ class _MyCartState extends State<MyCart> {
                             ),
                           ),
                           onPressed: () {
-                            Get.to(() => Checkout());
+                            Get.to(() => const Checkout());
                           },
                         ),
                       ],

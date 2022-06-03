@@ -6,6 +6,8 @@ import '../Controllers/store_controller.dart';
 import 'cart.dart';
 
 class Wishlist extends StatefulWidget {
+  const Wishlist({Key? key}) : super(key: key);
+
   @override
   _WishlistState createState() => _WishlistState();
 }
