@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:superdigitalmall/ApiHelper/model.dart';
+import 'package:superdigitalmall/screens/cart.dart';
 
 class ProductSc extends StatelessWidget {
   final Products product;
@@ -67,7 +68,7 @@ class ProductSc extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(
-          color: Colors.black, //change your color here
+          color: Colors.white, //change your color here
         ),
         actions: [
           const Icon(
@@ -91,16 +92,16 @@ class ProductSc extends StatelessWidget {
                   width: 20,
                   height: 20,
                   decoration: BoxDecoration(
-                    color: Colors.red,
+                    color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Center(
+                  child: Center(
                     child: Text(
-                      "1",
-                      style: TextStyle(
+                      store.cartCount.toString(),
+                      style: const TextStyle(
                           fontSize: 10,
                           fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                          color: Colors.red),
                     ),
                   ),
                 ),
@@ -111,11 +112,10 @@ class ProductSc extends StatelessWidget {
             width: 10,
           ),
         ],
-        backgroundColor: Colors.white,
         title: const Text(
           'Product Details',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),
