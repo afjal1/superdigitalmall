@@ -62,3 +62,13 @@ Super Digital Mall is a Flutter ECommerce App Template.
 <img width="462" alt="Screenshot 2022-06-06 at 11 29 31 PM" src="https://user-images.githubusercontent.com/52181725/172220448-d3d4823d-0570-46ae-9ec6-3a1d548245a4.png">
 
 
+## My Orders
+
+# 1
+<img width="529" alt="Screenshot 2022-06-06 at 11 49 50 PM" src="https://user-images.githubusercontent.com/52181725/172221940-ae5dbb47-13e3-4171-b41e-d42012688a87.png">
+
+# 1
+<img width="486" alt="Screenshot 2022-06-06 at 11 49 57 PM" src="https://user-images.githubusercontent.com/52181725/172221965-c84d1f7d-3174-4adf-bb85-3b698f40a636.png">
+
+
+
